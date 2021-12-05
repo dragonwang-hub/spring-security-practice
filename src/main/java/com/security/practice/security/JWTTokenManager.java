@@ -10,7 +10,6 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
 
 public class JWTTokenManager {
 
@@ -41,5 +40,9 @@ public class JWTTokenManager {
     public String parseUserNameFromJWT(String jwt) {
         Claims claims = Jwts.parser().setSigningKey(apiKeySecretBytes).parseClaimsJws(jwt).getBody();
         return claims.getSubject();
+    }
+
+    public void deleteToken(String jwt) {
+        System.out.println("Delete: " + jwt);
     }
 }
