@@ -1,6 +1,7 @@
 package com.security.practice.security;
 
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 
 public class JWTTokenManager {
 
@@ -36,7 +38,8 @@ public class JWTTokenManager {
         return jwtBuilder.compact();
     }
 
-    private void parseUserNameFromJWT(String jwt) {
-
+    public String parseUserNameFromJWT(String jwt) {
+        Claims claims = Jwts.parser().setSigningKey(apiKeySecretBytes).parseClaimsJws(jwt).getBody();
+        return claims.getSubject();
     }
 }
